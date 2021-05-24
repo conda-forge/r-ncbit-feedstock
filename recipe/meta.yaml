@@ -1,5 +1,4 @@
 {% set version = '2013.03.29' %}
-
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -8,16 +7,15 @@ package:
   version: {{ version|replace("-", "_") }}
 
 source:
-  fn: ncbit_{{ version }}.tar.gz
   url:
     - {{ cran_mirror }}/src/contrib/ncbit_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/ncbit/ncbit_{{ version }}.tar.gz
   sha256: 4480271f14953615c8ddc2e0666866bb1d0964398ba0fab6cc29046436820738
 
 build:
-  noarch: generic
   merge_build_host: True  # [win]
   number: 1002
+  noarch: generic
   rpaths:
     - lib/R/lib/
     - lib/
@@ -25,10 +23,8 @@ build:
 requirements:
   build:
     - {{ posix }}zip               # [win]
-
   host:
     - r-base
-
   run:
     - r-base
 
@@ -39,10 +35,11 @@ test:
 
 about:
   home: https://CRAN.R-project.org/package=ncbit
-  license: GPL (>= 2)
+  license: GPL-2.0-or-later
   summary: making NCBI taxonomic data locally available and searchable as an R object
   license_family: GPL3
-  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'
+  license_file:
+    - {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3
 
 extra:
   recipe-maintainers:
